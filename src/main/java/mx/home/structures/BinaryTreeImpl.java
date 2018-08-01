@@ -14,8 +14,8 @@ public class BinaryTreeImpl<T> implements BinaryTree<T> {
     private Node<T> root;
     
     /** Constructor requiere de valor raíz. */
-    public BinaryTreeImpl(T rootValue) {
-        this.root = new Node<>(checkNotNull(rootValue));
+    public BinaryTreeImpl(Node<T> root) {
+        this.root = checkNotNull(root);
     }
     
     /* (non-Javadoc)

@@ -5,6 +5,7 @@ import com.google.inject.Provides;
 
 import mx.home.structures.BinaryTree;
 import mx.home.structures.BinaryTreeImpl;
+import mx.home.structures.BinaryTreeImpl.Node;
 
 public class ConfigurationModule extends AbstractModule {
     /* (non-Javadoc)
@@ -17,12 +18,12 @@ public class ConfigurationModule extends AbstractModule {
     
     @Provides
     public BinaryTree<String> provideStringTree() {
-        return new BinaryTreeImpl<String>("A");
+        return new BinaryTreeImpl<String>(new Node<String>("A"));
     }
     
     @Provides
     public BinaryTree provideRawTree() {
-        return new BinaryTreeImpl<>("A");
+        return new BinaryTreeImpl<>(new Node<String>("A"));
     }
 
     
