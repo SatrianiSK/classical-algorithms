@@ -3,6 +3,7 @@ package mx.home.structures;
 import static com.google.common.base.Preconditions.checkNotNull;
 
 import java.util.LinkedList;
+import java.util.PriorityQueue;
 import java.util.Queue;
 
 /**
@@ -16,6 +17,7 @@ public class BinaryTreeImpl<T> implements BinaryTree<T> {
     /** Constructor requiere de valor raíz. */
     public BinaryTreeImpl(Node<T> root) {
         this.root = checkNotNull(root);
+        this.root.level = 1;
     }
     
     /* (non-Javadoc)
@@ -83,6 +85,39 @@ public class BinaryTreeImpl<T> implements BinaryTree<T> {
         return breadthFirstSearchRecursiveHelper(value, nodeQueue);
     }
     
+    /* (non-Javadoc)
+     * @see mx.home.structures.BinaryTree#depthFirstSearchQueue(java.lang.Object)
+     */
+    @Override
+    public Node<T> depthFirstSearchQueue(T value) {
+      if(root.value.equals(value)) {
+        return root;
+      }
+      
+      PriorityQueue<Node<T>> priorityQueue = new PriorityQueue<Node<T>>(10, (node1, node2) -> {
+        return node2.level - node1.level;
+      });
+      
+      Node<T> result = null;
+      priorityQueue.add(root);
+      while(!priorityQueue.isEmpty()) {
+        Node<T> node = priorityQueue.remove();
+        System.out.println(node); // TODO Eliminar, únicamente para revisar ejecución correcta.
+        if(node.value.equals(value)) {
+          result = node;
+          break;
+        } else {
+          if(node.left != null) {
+            priorityQueue.add(node.left);
+          }
+          if(node.right != null) {
+            priorityQueue.add(node.right);
+          }
+        }
+      }
+      return result;
+    }
+    
     // Sección de Getters y Setters
     @Override
     public Node<T> getRoot() {
@@ -97,6 +132,7 @@ public class BinaryTreeImpl<T> implements BinaryTree<T> {
         private T value;
         private Node<T> left;
         private Node<T> right;
+        private int level;
         
         public Node() {
             // Constructor por defecto
@@ -119,6 +155,7 @@ public class BinaryTreeImpl<T> implements BinaryTree<T> {
         }
         public Node<T> setLeft(Node<T> left) {
             this.left = left;
+            this.left.level = this.level + 1;
             return this.left;
         }
         public Node<T> getRight() {
@@ -126,6 +163,7 @@ public class BinaryTreeImpl<T> implements BinaryTree<T> {
         }
         public Node<T> setRight(Node<T> right) {
             this.right = right;
+            this.right.level = this.level + 1;
             return this.right;
         }
         
