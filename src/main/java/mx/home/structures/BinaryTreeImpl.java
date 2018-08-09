@@ -3,6 +3,7 @@ package mx.home.structures;
 import static com.google.common.base.Preconditions.checkNotNull;
 
 import java.util.LinkedList;
+import java.util.List;
 import java.util.PriorityQueue;
 import java.util.Queue;
 
@@ -13,7 +14,7 @@ import org.apache.logging.log4j.Logger;
  * Implmentación de la interfaz de un árbol binario.
  * @author Rodrigo
  */
-public class BinaryTreeImpl<T> implements BinaryTree<T> {
+public class BinaryTreeImpl<T extends Comparable<T>> implements BinaryTree<T> {
   /** Reference to the log of the application. */
   private final static Logger LOG = LogManager.getLogger(BinaryTreeImpl.class);
   
@@ -151,6 +152,39 @@ public class BinaryTreeImpl<T> implements BinaryTree<T> {
       return rightSearchNode;
     }
     return null;
+  }
+  
+  /* (non-Javadoc)
+   * @see mx.home.structures.BinaryTree#isBinarySearchTree()
+   */
+  @Override
+  public boolean isBinarySearchTree() {
+    boolean result = true;
+    List<T> inOrderValues = new LinkedList<>();
+    binarySearchTreeHelper(root, inOrderValues);
+    LOG.debug("In order list: " + inOrderValues);
+    
+    for(int i = 0; i < inOrderValues.size(); i++) {
+      if(i < inOrderValues.size() - 1) {
+        T currentValue = inOrderValues.get(i);
+        T nextValue = inOrderValues.get(i + 1);
+        if(currentValue.compareTo(nextValue) > 0) {
+          result = false;
+          break;
+        }
+      }
+    }
+    
+    return result;
+  }
+  
+  private void binarySearchTreeHelper(Node<T> node, List<T> values) {
+    if(node == null) {
+      return;
+    }
+    binarySearchTreeHelper(node.left, values);
+    values.add(node.value);
+    binarySearchTreeHelper(node.right, values);
   }
   
   // Sección de Getters y Setters

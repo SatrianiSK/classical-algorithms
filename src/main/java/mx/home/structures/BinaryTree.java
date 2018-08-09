@@ -36,6 +36,12 @@ public interface BinaryTree<T> {
   public Node<T> depthFirstSearchRecursive(T value);
   
   /**
+   * Determines if the current tree is a binary search tree
+   * @return true if it's a binary search tree
+   */
+  public boolean isBinarySearchTree();
+  
+  /**
    * Obtiene el nodo raíz.
    * @return nodo raíz.
    */

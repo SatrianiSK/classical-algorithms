@@ -37,6 +37,9 @@ public class Principal {
     
     resultado = tree.depthFirstSearchRecursive("G");
     LOG.info("Depth First Search Recursive result: " + resultado + "\n");
+    
+    boolean isBynarySearchTree = tree.isBinarySearchTree();
+    LOG.info("Is it a binary search tree: " + isBynarySearchTree);
   }
   
 }
