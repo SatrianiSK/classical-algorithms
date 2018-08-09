@@ -23,11 +23,20 @@ public class Principal {
     Injector injector = Guice.createInjector(new ConfigurationModule());
     BinaryTree<String> tree = injector.getInstance(BinaryTree.class);
     
-    Node<String> resultado = tree.breadthFirstSearchRecursive("F");
-    LOG.info("Resultado: " + resultado);
+    // In this we variable we are going to be saving the results
+    Node<String> resultado = null;
     
-    Node<String> resultado2 = tree.depthFirstSearchQueue("D");
-    LOG.info("Resultado: " + resultado2);
+    resultado = tree.breadthFirstSearchQueue("G");
+    LOG.info("Breadth First Search Queue result: " + resultado + "\n");
+    
+    resultado = tree.breadthFirstSearchRecursive("G");
+    LOG.info("Breadth First Search Recursive result: " + resultado + "\n");
+    
+    resultado = tree.depthFirstSearchQueue("G");
+    LOG.info("Depth First Search Queue result: " + resultado + "\n");
+    
+    resultado = tree.depthFirstSearchRecursive("G");
+    LOG.info("Depth First Search Recursive result: " + resultado + "\n");
   }
   
 }

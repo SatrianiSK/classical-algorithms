@@ -29,6 +29,13 @@ public interface BinaryTree<T> {
   public Node<T> depthFirstSearchQueue(T value);
   
   /**
+   * Starts a DFS in the tree and returns the node with the given value
+   * @param value
+   * @return node with the given value or null if it doesn't exist in the tree
+   */
+  public Node<T> depthFirstSearchRecursive(T value);
+  
+  /**
    * Obtiene el nodo raíz.
    * @return nodo raíz.
    */

@@ -43,11 +43,11 @@ public class BinaryTreeImpl<T> implements BinaryTree<T> {
       nodeQueue.add(root.right);
     }
     
-    LOG.info(root); // TODO Eliminar, únicamente para revisar ejecución correcta.
+    LOG.debug(root);
     Node<T> result = null;
     while(!nodeQueue.isEmpty()) {
       Node<T> temp = nodeQueue.remove();
-      LOG.info(temp); // TODO Eliminar, únicamente para revisar ejecución correcta.
+      LOG.debug(temp);
       if(temp.value.equals(value)) {
         result = temp;
         break;
@@ -77,7 +77,7 @@ public class BinaryTreeImpl<T> implements BinaryTree<T> {
     if(nodeQueue.isEmpty()) return null;
     
     Node<T> node = nodeQueue.remove();
-    LOG.info(node); // TODO Eliminar, únicamente para revisar ejecución correcta.
+    LOG.debug(node);
     if(node.value.equals(value)) {
       return node;
     }
@@ -108,7 +108,7 @@ public class BinaryTreeImpl<T> implements BinaryTree<T> {
     priorityQueue.add(root);
     while(!priorityQueue.isEmpty()) {
       Node<T> node = priorityQueue.remove();
-      LOG.info(node); // TODO Eliminar, únicamente para revisar ejecución correcta.
+      LOG.debug(node);
       if(node.value.equals(value)) {
         result = node;
         break;
@@ -122,6 +122,35 @@ public class BinaryTreeImpl<T> implements BinaryTree<T> {
       }
     }
     return result;
+  }
+  
+  /* (non-Javadoc)
+   * @see mx.home.structures.BinaryTree#depthFirstSearchRecursive(java.lang.Object)
+   */
+  @Override
+  public Node<T> depthFirstSearchRecursive(T value) {
+    return depthFirstSearchRecursiveHelper(root, value);
+  }
+  
+  private Node<T> depthFirstSearchRecursiveHelper(Node<T> node, T value) {
+    if(node == null) {
+      return null;
+    } else if(node.value.equals(value)) {
+      LOG.debug(node);
+      return node;
+    }
+    LOG.debug(node);
+    // Search in depth on the left branch
+    Node<T> leftSearchNode = depthFirstSearchRecursiveHelper(node.left, value);
+    if(leftSearchNode != null) {
+      return leftSearchNode;
+    }
+    // Search in depth on the right branch
+    Node<T> rightSearchNode = depthFirstSearchRecursiveHelper(node.right, value);
+    if(rightSearchNode != null) {
+      return rightSearchNode;
+    }
+    return null;
   }
   
   // Sección de Getters y Setters
