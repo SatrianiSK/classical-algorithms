@@ -1,5 +1,8 @@
 package mx.home.main;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 
@@ -12,6 +15,8 @@ import mx.home.structures.BinaryTreeImpl.Node;
  * @author Rodrigo
  */
 public class Principal {
+  /** Reference to the log of the application. */
+  private final static Logger LOG = LogManager.getLogger(Principal.class);
   
   @SuppressWarnings("unchecked")
   public static void main(String[] args) {
@@ -19,10 +24,10 @@ public class Principal {
     BinaryTree<String> tree = injector.getInstance(BinaryTree.class);
     
     Node<String> resultado = tree.breadthFirstSearchRecursive("F");
-    System.out.println("Resultado: " + resultado);
+    LOG.info("Resultado: " + resultado);
     
     Node<String> resultado2 = tree.depthFirstSearchQueue("D");
-    System.out.println("Resultado: " + resultado2);
+    LOG.info("Resultado: " + resultado2);
   }
   
 }
